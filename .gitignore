@@ -1,5 +1,7 @@
 *.py[cod]
 
+semantic.cache
+
 # C extensions
 *.so
 
