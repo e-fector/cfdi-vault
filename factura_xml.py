@@ -22,6 +22,10 @@ class Factura:
 	def GetFecha(self):
 		return self.raiz.attrib["fecha"]
 
+	def GetConceptos(self):
+		conceptos = self.raiz.iter("{http://www.sat.gob.mx/cfd/2}Concepto")
+		return conceptos
+
 	def GetRFC(self):
 		Emisor = self.raiz.find("{http://www.sat.gob.mx/cfd/2}Emisor")
 		return Emisor.attrib["rfc"]
