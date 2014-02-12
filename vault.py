@@ -9,7 +9,7 @@ import shutil
 from utils import genera_folder
 
 dir_recepcion_de_archivos = "/home/sebastianavina/Dropbox/facturas_attachments/"
-dir_vault = "/home/sebastianavina/Dropbox/facturas_vault/"
+dir_vault = "/home/sebastianavina/facturas_vault/"
 
 if __name__ == '__main__':
 	for dirname, dirnames, filenames in os.walk(dir_recepcion_de_archivos):
@@ -25,24 +25,47 @@ if __name__ == '__main__':
 					semana = fecha.isocalendar()[1]
 
 					folder = genera_folder(dir_vault,rfc_emisor,anio,semana)
+
+					conceptos = []
+
+					for concepto in  factura.GetConceptos():
+						if "noIdentificacion" in concepto.attrib:
+							identificacion = concepto.attrib["noIdentificacion"]
+						else:
+							identificacion = ""
+						conceptos.append( {
+								"cantidad":concepto.attrib["cantidad"],
+								"unidad":concepto.attrib["unidad"],
+								"noIdentificacion":identificacion,
+								"descripcion":concepto.attrib["descripcion"],
+								"valorUnitario":concepto.attrib["valorUnitario"],
+								"importe":concepto.attrib["importe"],
+								})
+
+					print conceptos
 					
+					
+
+					
+					shutil.copy(dir_recepcion_de_archivos + filename,
+											folder + filename)
 					pdf = ""
 					if ".xml" in filename:
 						pdf = filename.replace(".xml", ".pdf")
 					if ".XML" in filename:
 						pdf = filename.replace(".XML", ".PDF")
-					shutil.copy(dir_recepcion_de_archivos + filename,
-											folder + filename)
 					shutil.copy(dir_recepcion_de_archivos + pdf,
 											folder + pdf)
 					
 					print folder + filename
 
-									
+
 
 				except Exception as e:
 					info = open(dir_recepcion_de_archivos + filename,"r")
 					txt = ""
+					print ""
+					print "ERROR"
 					for line in info:
 						txt += line
 					#print txt 
