@@ -1,0 +1,30 @@
+;; Object cfdi-vault/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "cfdi-vault/"
+  :tables (list 
+   (semanticdb-table "vault.py"
+    :major-mode 'python-mode
+    :tags '(("os" include nil (dependency-file none) [20 29]) ("factura_xml" include nil (dependency-file none) [30 61]) ("dir_recepcion_de_archivos" variable nil nil [63 143]) ("dir_vault" variable nil nil [144 183]) ("if" code nil nil [185 662]))
+    :file "vault.py"
+    :pointmax 691
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "factura_xml.py"
+    :major-mode 'python-mode
+    :tags '(("xml.etree" include nil (dependency-file none) [20 53]) ("codecs" include nil (dependency-file none) [54 67]) ("Factura" type (:members (("\"\"\" 
+	Clase para representar una factura
+	\"\"\"" code nil (reparse-symbol indented_block_body) [86 131]) ("__init__" function (:arguments (("self" variable nil (reparse-symbol function_parameters) [148 152]) ("xml" variable nil (reparse-symbol function_parameters) [154 157]))) (reparse-symbol indented_block_body) [135 318]) ("GetFecha" function (:arguments (("self" variable nil (reparse-symbol function_parameters) [336 340]))) (reparse-symbol indented_block_body) [323 378])) :type "class") nil [70 378]))
+    :file "factura_xml.py"
+    :pointmax 381
+    )
+   (semanticdb-table "replace.lisp"
+    :major-mode 'lisp-mode
+    :tags '(("find-dired" code nil nil [193 276]))
+    :file "replace.lisp"
+    :pointmax 312
+    )
+   )
+  :file "semantic.cache"
+  :semantic-tag-version "2.0pre4"
+  :semanticdb-version "2.0pre4"
+  )
