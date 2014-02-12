@@ -4,24 +4,31 @@
   :tables (list 
    (semanticdb-table "vault.py"
     :major-mode 'python-mode
-    :tags '(("os" include nil (dependency-file none) [20 29]) ("factura_xml" include nil (dependency-file none) [30 61]) ("dir_recepcion_de_archivos" variable nil nil [63 143]) ("dir_vault" variable nil nil [144 183]) ("if" code nil nil [185 662]))
+    :tags '(("os" include nil (dependency-file none) [20 29]) ("factura_xml" include nil (dependency-file none) [30 61]) ("datetime" include nil (dependency-file none) [62 91]) ("shutil" include nil (dependency-file none) [92 105]) ("utils" include nil (dependency-file none) [108 139]) ("dir_recepcion_de_archivos" variable nil nil [141 221]) ("if" code nil nil [274 1949]))
     :file "vault.py"
-    :pointmax 691
+    :pointmax 1991
     :unmatched-syntax 'nil
     )
    (semanticdb-table "factura_xml.py"
     :major-mode 'python-mode
     :tags '(("xml.etree" include nil (dependency-file none) [20 53]) ("codecs" include nil (dependency-file none) [54 67]) ("Factura" type (:members (("\"\"\" 
 	Clase para representar una factura
-	\"\"\"" code nil (reparse-symbol indented_block_body) [86 131]) ("__init__" function (:arguments (("self" variable nil (reparse-symbol function_parameters) [148 152]) ("xml" variable nil (reparse-symbol function_parameters) [154 157]))) (reparse-symbol indented_block_body) [135 318]) ("GetFecha" function (:arguments (("self" variable nil (reparse-symbol function_parameters) [336 340]))) (reparse-symbol indented_block_body) [323 378])) :type "class") nil [70 378]))
+	\"\"\"" code nil (reparse-symbol indented_block_body) [86 131]) ("__init__" function (:arguments (("self" variable nil (reparse-symbol function_parameters) [148 152]) ("xml" variable nil (reparse-symbol function_parameters) [154 157]))) (reparse-symbol indented_block_body) [135 321]) ("GetFecha" function (:arguments (("self" variable nil (reparse-symbol function_parameters) [339 343]))) (reparse-symbol indented_block_body) [326 381]) ("GetRFC" function (:arguments (("self" variable nil (reparse-symbol function_parameters) [509 513]))) (reparse-symbol indented_block_body) [498 611])) :type "class") nil [70 611]))
     :file "factura_xml.py"
-    :pointmax 381
+    :pointmax 612
+    :unmatched-syntax 'nil
     )
    (semanticdb-table "replace.lisp"
     :major-mode 'lisp-mode
     :tags '(("find-dired" code nil nil [193 276]))
     :file "replace.lisp"
     :pointmax 312
+    )
+   (semanticdb-table "genera_folder.py"
+    :major-mode 'python-mode
+    :tags '(("os" include nil (dependency-file none) [1 10]) ("genera_folder" function (:arguments (("folder" variable nil (reparse-symbol function_parameters) [30 36]) ("rfc_emisor" variable nil (reparse-symbol function_parameters) [37 47]) ("anio" variable nil (reparse-symbol function_parameters) [48 52]) ("semana" variable nil (reparse-symbol function_parameters) [53 59]))) nil [12 351]))
+    :file "genera_folder.py"
+    :pointmax 1
     )
    )
   :file "semantic.cache"
