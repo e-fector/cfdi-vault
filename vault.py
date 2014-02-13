@@ -3,6 +3,7 @@
 import os
 from factura_xml import Factura
 from datetime import datetime
+import calendar
 import shutil
 import sqlite3
 
@@ -49,17 +50,19 @@ if __name__ == '__main__':
 					
 					c = conn.cursor()
 
-					query = """INSERT INTO facturas (cfdi, emisor, numero_factura) 
-                   VALUES ('%s', '%s', '%s' )""" % \
-							(filename.replace(".xml",""), rfc_emisor, rfc_emisor)
+					query = """INSERT INTO facturas (cfdi, emisor, numero_factura, fecha) 
+                   VALUES ('%s', '%s', '%s', '%s' )""" % \
+							(factura.GetCFDi(), rfc_emisor, factura.GetFolio(), \
+								 calendar.timegm(fecha.utctimetuple()))
 
 					c.execute(query)
 					
 					for concepto in conceptos:
-						query = """INSERT INTO conceptos (cantidad, noIdentificacion, descripcion,
-                     valorUnitario, importe VALUES ('%s','%s','%s','%s','%s') """ % \
-								(concepto.cantidad, concepto.noIdentificacion, concepto.descripcion,
-								 concepto.valorUnitario, concepto.importe)
+						query = """INSERT INTO conceptos (cfdi,cantidad, noIdentificacion, descripcion,
+                     valorUnitario, importe) VALUES ('%s','%s','%s','%s','%s','%s') """ % \
+								(factura.GetCFDi(),concepto["cantidad"],concepto["noIdentificacion"],
+								 concepto["descripcion"], concepto["valorUnitario"], concepto["importe"])
+						c.execute(query)
 
 					conn.commit()
 					
