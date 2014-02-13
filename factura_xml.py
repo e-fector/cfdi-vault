@@ -15,9 +15,7 @@ class Factura:
 		#codecs.open(self.xml, encoding="UTF-8"))
 		self.raiz = self.arbol.getroot()
     
-		
 		return None
-	
 	
 	def GetFecha(self):
 		return self.raiz.attrib["fecha"]
@@ -29,4 +27,13 @@ class Factura:
 	def GetRFC(self):
 		Emisor = self.raiz.find("{http://www.sat.gob.mx/cfd/2}Emisor")
 		return Emisor.attrib["rfc"]
+	
+	def GetFolio(self):
+		serie = self.raiz.attrib["serie"] 
+		folio = self.raiz.attrib["folio"]
+		ret = "%s-%s" % (serie, folio)
+		return ret
 
+	def GetCFDi(self):
+		cert = self.raiz.attrib["noCertificado"]
+		return cert
