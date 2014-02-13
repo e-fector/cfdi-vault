@@ -5,6 +5,30 @@ import codecs
 
 
 class Factura:
+	def __init__(self,xml):
+		self.xml = xml
+		self.arbol = ElementTree.parse(self.xml)
+		#codecs.open(self.xml, encoding="UTF-8"))
+		self.raiz = self.arbol.getroot()
+
+		self.__class__ = FacturaCFD2
+		return None
+
+	def GetFecha(self): 
+		raise NotImplementedError()
+	def GetConceptos(self):
+		raise NotImplementedError()
+	def GetRFC(self): 
+		raise NotImplementedError()
+	def GetFolio(self): 
+		raise NotImplementedError()
+	def GetCFDi(self): 
+		raise NotImplementedError()
+	
+
+	
+
+class FacturaCFD2(Factura):
 	""" 
 	Clase para representar una factura
 	"""
