@@ -4,7 +4,7 @@ import os
 from factura_xml import Factura
 from datetime import datetime
 import shutil
-
+import sqlite3
 
 from utils import genera_folder
 
@@ -44,8 +44,24 @@ if __name__ == '__main__':
 
 					print conceptos
 					
-					
 
+					conn = sqlite3.connect(dir_vault + "facturas.db")
+					
+					c = conn.cursor()
+
+					query = """INSERT INTO facturas (cfdi, emisor, numero_factura) 
+                   VALUES ('%s', '%s', '%s' )""" % \
+							(filename.replace(".xml",""), rfc_emisor, rfc_emisor)
+
+					c.execute(query)
+					
+					for concepto in conceptos:
+						query = """INSERT INTO conceptos (cantidad, noIdentificacion, descripcion,
+                     valorUnitario, importe VALUES ('%s','%s','%s','%s','%s') """ % \
+								(concepto.cantidad, concepto.noIdentificacion, concepto.descripcion,
+								 concepto.valorUnitario, concepto.importe)
+
+					conn.commit()
 					
 					shutil.copy(dir_recepcion_de_archivos + filename,
 											folder + filename)
