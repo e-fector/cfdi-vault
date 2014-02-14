@@ -18,7 +18,10 @@ class Factura:
 			self.__class__ = FacturaCFD2
 		elif version == "3":
 			self.__class__ = FacturaCFDi3
+		else:
+			raise NotImplementedError()
 
+			
 		return None
 
 	def GetFecha(self): 		

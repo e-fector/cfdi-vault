@@ -43,9 +43,6 @@ if __name__ == '__main__':
 								"importe":concepto.attrib["importe"],
 								})
 
-					print conceptos
-					
-
 					conn = sqlite3.connect(dir_vault + "facturas.db")
 					
 					c = conn.cursor()
@@ -76,9 +73,6 @@ if __name__ == '__main__':
 					shutil.copy(dir_recepcion_de_archivos + pdf,
 											folder + pdf)
 					
-					print folder + filename
-
-
 
 				except Exception as e:
 					info = open(dir_recepcion_de_archivos + filename,"r")
