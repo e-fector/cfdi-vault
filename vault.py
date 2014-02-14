@@ -23,9 +23,10 @@ if __name__ == '__main__':
 					fecha = datetime.strptime(factura.GetFecha(), "%Y-%m-%dT%H:%M:%S")
 
 					anio = fecha.year
+					mes = fecha.month
 					semana = fecha.isocalendar()[1]
 
-					folder = genera_folder(dir_vault,rfc_emisor,anio,semana)
+					folder = genera_folder(dir_vault,rfc_emisor,anio,mes)
 
 					conceptos = []
 
