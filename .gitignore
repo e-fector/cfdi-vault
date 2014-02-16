@@ -2,6 +2,7 @@
 
 semantic.cache
 *.html~
+nohup.out
 
 # C extensions
 *.so
