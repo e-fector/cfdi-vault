@@ -5,6 +5,6 @@
 % for factura in datos:
 %   import time
 %   fecha = time.gmtime(int(factura[4]))
-   {{ fecha[2] }}/{{ fecha[1] }}/{{ fecha[0] }} - {{ factura[1] }} <br />
+   {{ fecha[2] }}/{{ fecha[1] }}/{{ fecha[0] }} - <a href="/factura/{{ factura[1] }}.xml">{{ factura[1] }}</a> <br />
 % end
 </ul>

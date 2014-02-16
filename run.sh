@@ -1,2 +1,2 @@
-python app.py &
-python abre_navegador.py &
+nohup python app.py &
+nohup python abre_navegador.py &
