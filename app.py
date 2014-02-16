@@ -4,8 +4,6 @@ from libs import bottle
 from datetime import datetime
 import time
 
-import pynotify
-
 import sqlite3
 
 from vault import dir_vault
@@ -101,17 +99,6 @@ Paginador("/ajax").tabla("conceptos").where_args("noIdentificacion", "LIKE")\
 Paginador("/listado/xproveedor").que("emisor").tabla("facturas").group("emisor")\
 		.template("templates/xproveedor.html")
 
-	
-@route("/listado/xmes")
-def xmeses():
-	conn = sqlite3.connect(dir_vault + "facturas.db")
-	c = conn.cursor()
-	query = """SELECT fecha FROM facturas ORDER by fecha ASC LIMIT 1 """
-	datos = c.execute(query)
-	import time
-	fecha = time.gmtime(int(datos.fetchone()[0]))
-	
-	return template("templates/xmes.html", {"datos":fecha, "hoy":datetime.now()} )
 
 @route("/listado/xmes/<ano>/<mes>/<orden>")
 def xmes(ano,mes,orden):
@@ -130,24 +117,18 @@ def xmes(ano,mes,orden):
 	datos = c.execute(query)
 	
 	return template("templates/xmes_listado.html", {"datos":datos} )
+
 	
-
-@route('/pasa')
-def index():
-
-	pynotify.init("Cfdi-vault")
-	msg = pynotify.Notification("SERV","El servidor fue iniciado")
-	msg.show()
-
-
-	n = 0
-	while True:
-		yield template("<b>hola {{name }}" + str(datetime.now()) + "</b><br />", name=name)
-		time.sleep(5)
-		n += 1
-		if n == 5:
-			exit(0)
+@route("/listado/xmes")
+def xmeses():
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = """SELECT fecha FROM facturas ORDER by fecha ASC LIMIT 1 """
+	datos = c.execute(query)
+	import time
+	fecha = time.gmtime(int(datos.fetchone()[0]))
 	
-	#return template('<b>Hello {{name}}</b>!', name=name)
+	return template("templates/xmes.html", {"datos":fecha, "hoy":datetime.now()} )
 
+	
 run(host='localhost', port=8001)
