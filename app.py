@@ -1,4 +1,4 @@
-from libs.bottle import route, run, template, static_file
+from libs.bottle import route, run, template, static_file, request, get
 
 from datetime import datetime
 import time
@@ -9,7 +9,7 @@ import sqlite3
 
 from vault import dir_vault
 
-@route('/jss/<filename:re:.*\.js>')
+@route('/js/<filename:re:.*\.js>')
 def javascripts(filename):
     return static_file(filename, root='static/js')
 
@@ -21,6 +21,26 @@ def stylesheets(filename):
 def images(filename):
     return static_file(filename, root='static/img')
 
+@get('/ajax')
+def indexMain():
+	args = request.query.get("input")
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = "SELECT * FROM conceptos WHERE noIdentificacion LIKE \"%"+args+"%\" GROUP BY noIdentificacion "
+	datos = c.execute(query)
+	return template("templates/json.html", datos=datos.fetchall() )
+
+@route('/concepto')
+def indexMain():
+	args = request.query.get("concepto")
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = """SELECT * FROM conceptos WHERE noIdentificacion = "%s" """ % args
+	datos = c.execute(query)
+	return template("templates/concepto.html", datos=datos.fetchall() )
+
+
+@route('/')
 @route('/listado')
 def indexMain():
 	conn = sqlite3.connect(dir_vault + "facturas.db")
