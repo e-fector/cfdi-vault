@@ -1,4 +1,5 @@
 from libs.bottle import route, run, template, static_file, request, get
+from libs import bottle
 
 from datetime import datetime
 import time
@@ -21,6 +22,21 @@ def stylesheets(filename):
 def images(filename):
     return static_file(filename, root='static/img')
 
+
+class Paginador:
+	def __init__(self, ruta):
+		self.ruta = ruta
+		bottle.route(self.ruta)(self.get)
+
+	def get(self):
+		conn = sqlite3.connect(dir_vault + "facturas.db")
+		c = conn.cursor()
+		query = """SELECT * FROM facturas """
+		datos = c.execute(query)
+		return template("templates/listado.html", datos=datos.fetchall() )
+
+Paginador("/")
+
 @get('/ajax')
 def indexMain():
 	args = request.query.get("input")
@@ -40,7 +56,6 @@ def conceptos():
 	return template("templates/concepto.html", datos=datos.fetchall() )
 
 
-@route('/')
 @route('/listado')
 def indexMain():
 	conn = sqlite3.connect(dir_vault + "facturas.db")
@@ -104,7 +119,7 @@ def xproveedor(proveedor):
 	return template("templates/proveedor.html", {"datos":datos} )
 
 
-@route('/')
+@route('/pasa')
 def index():
 
 	pynotify.init("Cfdi-vault")
