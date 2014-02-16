@@ -2,6 +2,31 @@
   <head>
     <title>{{ title  or "" }} CFDI Vault</title>
     <style type="text/css" media="screen">
+      html {
+        width: 840px;
+        font-size: 1em;
+        font-family: sans-serif;
+        color: #191960;
+        background: #fff;
+        display:bock;
+        text-align:center;
+        margin: 0 auto;
+      }
+      
+      body {
+
+        overflow-x: hidden;
+      }
+      p {	
+        margin-left: 0em;
+        margin-bottom: 1ex;
+        margin-top: 0.5ex;
+      }
+      #header {
+        padding:0 10px 10px 10px;
+        background-color:#CCC;
+        border:1px solid #333;
+      }
       ul.menu li {
         display:block;
         float:left;
@@ -15,6 +40,8 @@
   </head>
   <body>
 
+    <div id="header">
+
     <h1>¡Bienvenido a CFDI Vault!</h1>
     <ul class="menu">
       <li><a href="/listado">Listado</a></li>
@@ -22,6 +49,8 @@
       <li><a href="/listado/xproveedor">X proveedor</a></li>
       <li><a href="/buscador">Buscador</a></li>
     </ul>
+    <a>Manual</a>
+    </div> 
 
     <div id="contenido">
       {{ !base }}
