@@ -98,7 +98,8 @@ Paginador("/ajax").tabla("conceptos").where_args("noIdentificacion", "LIKE")\
 		.template("templates/json.html")
 Paginador("/listado/xproveedor").que("emisor").tabla("facturas").group("emisor")\
 		.template("templates/xproveedor.html")
-
+Paginador("/listado/xproveedor/<emisor>").tabla("facturas")\
+		.template("templates/proveedor.html")
 
 @route("/listado/xmes/<ano>/<mes>/<orden>")
 def xmes(ano,mes,orden):
@@ -117,7 +118,6 @@ def xmes(ano,mes,orden):
 	datos = c.execute(query)
 	
 	return template("templates/xmes_listado.html", {"datos":datos} )
-
 	
 @route("/listado/xmes")
 def xmeses():
@@ -127,8 +127,9 @@ def xmeses():
 	datos = c.execute(query)
 	import time
 	fecha = time.gmtime(int(datos.fetchone()[0]))
-	
+	conn.close()
 	return template("templates/xmes.html", {"datos":fecha, "hoy":datetime.now()} )
 
-	
-run(host='localhost', port=8001)
+#Ejecutamos servidor
+if __name__ == "__main__":
+	run(host='localhost', port=8001)
