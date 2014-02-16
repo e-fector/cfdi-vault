@@ -36,6 +36,25 @@ def xmeses():
 	
 	return template("templates/xmes.html", {"datos":fecha, "hoy":datetime.now()} )
 
+@route("/listado/xmes/<ano>/<mes>/<orden>")
+def xmes(ano,mes,orden):
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	import calendar
+	from dateutil.relativedelta import relativedelta
+
+	primer_dia_de_mes_fecha = datetime.strptime("%s-%s-%s" % (ano, mes,1), "%Y-%m-%d")
+	ultimo_dia_de_mes_fecha = primer_dia_de_mes_fecha + relativedelta(months=1)
+	primer_dia_de_mes = calendar.timegm(primer_dia_de_mes_fecha.utctimetuple())
+	ultimo_dia_de_mes = calendar.timegm(ultimo_dia_de_mes_fecha.utctimetuple())
+	
+	query = """SELECT * FROM facturas WHERE fecha > "%s" AND fecha < "%s" ORDER by %s ASC""" % \
+			(primer_dia_de_mes, ultimo_dia_de_mes, orden)
+	datos = c.execute(query)
+	
+	return template("templates/xmes_listado.html", {"datos":datos} )
+	
+
 @route("/listado/xproveedor")
 def xproveedor():
 	conn = sqlite3.connect(dir_vault + "facturas.db")

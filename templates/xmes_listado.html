@@ -1,0 +1,19 @@
+% rebase('templates/base.html', title="Facturas X mes")
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td>factura</td>
+    <td>emisor</td>
+    <td>fecha</td>
+  </tr>
+
+% for factura in datos:
+  <tr>
+    <td><a href="/factura/{{ factura[1] }}.xml">{{ factura[1] }}</a></td>
+    <td>{{ factura[2] }}</td>
+    <td>{{ factura[4] }}</td>
+  </tr>
+
+% end
+
+</table>
