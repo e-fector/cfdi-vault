@@ -34,6 +34,9 @@ class Factura:
 		raise NotImplementedError()
 	def GetCFDi(self): 
 		raise NotImplementedError()
+	def TipoComprobante(self):
+		self.raiz.attrib["tipoDeComprobante"]
+
 	
 
 
@@ -58,12 +61,13 @@ class FacturaCFDi3(Factura):
 
 	def GetFolio(self): 		
 		return self.raiz.attrib["folio"]
+
 		
 	def GetCFDi(self): 
 		Timbre = self.raiz.find("{http://www.sat.gob.mx/cfd/3}Complemento")
 		a = Timbre.iter("{http://www.sat.gob.mx/TimbreFiscalDigital}TimbreFiscalDigital").next()
-		
 		return a.attrib["UUID"]
+
 
 
 class FacturaCFD2(Factura):
@@ -92,5 +96,5 @@ class FacturaCFD2(Factura):
 		return ret
 
 	def GetCFDi(self):
-		cert = self.raiz.attrib["noCertificado"]
-		return cert
+		return self.GetFolio()
+

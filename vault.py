@@ -48,10 +48,10 @@ if __name__ == '__main__':
 					
 					c = conn.cursor()
 
-					query = """INSERT INTO facturas (cfdi, emisor, numero_factura, fecha) 
-                   VALUES ('%s', '%s', '%s', '%s' )""" % \
+					query = """INSERT INTO facturas (cfdi, emisor, numero_factura, fecha, tipo) 
+                   VALUES ('%s', '%s', '%s', '%s', '%s' )""" % \
 							(factura.GetCFDi(), rfc_emisor, factura.GetFolio(), \
-								 calendar.timegm(fecha.utctimetuple()))
+								 calendar.timegm(fecha.utctimetuple()), factura.TipoComprobante())
 
 					c.execute(query)
 					
@@ -74,7 +74,6 @@ if __name__ == '__main__':
 					shutil.copy(dir_recepcion_de_archivos + pdf,
 											folder + pdf)
 					
-
 				except Exception as e:
 					info = open(dir_recepcion_de_archivos + filename,"r")
 					txt = ""
