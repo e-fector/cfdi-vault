@@ -1,6 +1,5 @@
 import os
 
-from vault import dir_vault
 
 def genera_folder(folder,rfc_emisor,anio,mes):
 	
@@ -14,17 +13,18 @@ def genera_folder(folder,rfc_emisor,anio,mes):
 	
 	return folder
 
-
+"""
 class corrector_ortografico():
 	import re, collections
-
-  def words(text): return re.findall('[a-z]+', text.lower()) 
+	
+  def words(text): 
+		return re.findall('[a-z]+', text.lower()) 
   
   def train(features):
-      model = collections.defaultdict(lambda: 1)
-      for f in features:
-          model[f] += 1
-      return model
+		model = collections.defaultdict(lambda: 1)
+		for f in features:
+			model[f] += 1
+		return model
   
   NWORDS = train(words(file('big.txt').read()))
   
@@ -46,3 +46,4 @@ class corrector_ortografico():
   def correct(word):
       candidates = known([word]) or known(edits1(word)) or known_edits2(word) or [word]
       return max(candidates, key=NWORDS.get)
+"""

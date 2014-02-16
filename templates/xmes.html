@@ -1,0 +1,49 @@
+% rebase('templates/base.html', title="X mes")
+
+
+<% 
+desde_ano = datos[0] 
+desde_mes = datos[1] 
+
+hasta_ano = hoy.year
+haste_mes = hoy.month
+
+anos = range(desde_ano, hasta_ano+1)
+meses = {
+   1:"Enero",
+   2:"Febrero",
+   3:"Marzo",
+   4:"Abril",
+   5:"Mayo",
+   6:"Junio",
+   7:"Julio",
+   8:"Agosto",
+   9:"Septiembre",
+   10:"Octubre",
+   11:"Noviembre",
+   12:"Diciembre"
+}
+
+%>
+
+<style type="text/css" media="screen">
+#anio {
+  float:left;
+  display:block;
+}
+#anio li {
+  float:left;
+  clear:both;
+  display:block;
+}
+</style>
+
+
+% for ano in anos:
+<ul id="anio">
+<li>{{ ano }}</li>
+  % for mes,nombre in meses.iteritems():
+  <li><a href="/listado/xmes/{{ ano }}/{{ mes }}/">{{ nombre }}</a></li>
+  % end
+</ul>
+% end

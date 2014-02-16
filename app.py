@@ -25,7 +25,16 @@ def verFactura(id_factura):
 	datos = c.execute(query)
 	return template("templates/factura.html", datos=datos.fetchall() )
 	
-
+@route("/listado/xmes")
+def xmeses():
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = """SELECT fecha FROM facturas ORDER by fecha ASC LIMIT 1 """
+	datos = c.execute(query)
+	import time
+	fecha = time.gmtime(int(datos.fetchone()[0]))
+	
+	return template("templates/xmes.html", {"datos":fecha, "hoy":datetime.now()} )
 
 @route('/')
 def index():
