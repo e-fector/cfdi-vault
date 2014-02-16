@@ -31,7 +31,7 @@ def indexMain():
 	return template("templates/json.html", datos=datos.fetchall() )
 
 @route('/concepto')
-def indexMain():
+def conceptos():
 	args = request.query.get("concepto")
 	conn = sqlite3.connect(dir_vault + "facturas.db")
 	c = conn.cursor()
