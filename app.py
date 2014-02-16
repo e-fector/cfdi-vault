@@ -1,4 +1,4 @@
-from libs.bottle import route, run, template
+from libs.bottle import route, run, template, static_file
 
 from datetime import datetime
 import time
@@ -8,6 +8,18 @@ import pynotify
 import sqlite3
 
 from vault import dir_vault
+
+@route('/jss/<filename:re:.*\.js>')
+def javascripts(filename):
+    return static_file(filename, root='static/js')
+
+@route('/css/<filename:re:.*\.css>')
+def stylesheets(filename):
+    return static_file(filename, root='static/css')
+
+@route('/img/<filename:re:.*\.(jpg|png|gif|ico)>')
+def images(filename):
+    return static_file(filename, root='static/img')
 
 @route('/listado')
 def indexMain():
