@@ -24,53 +24,83 @@ def images(filename):
 
 
 class Paginador:
-	def __init__(self, ruta):
+	def __init__(self, ruta, *args):
+		self.__where__ = []
 		self.ruta = ruta
+		self.__template__ = ""
+		self.__tabla__ = "facturas"
+		self.__where_args__ = []
+		self.__que__ = "*"
+		self.__group__ = False
 		bottle.route(self.ruta)(self.get)
 
-	def get(self):
-		conn = sqlite3.connect(dir_vault + "facturas.db")
-		c = conn.cursor()
-		query = """SELECT * FROM facturas """
-		datos = c.execute(query)
-		return template("templates/listado.html", datos=datos.fetchall() )
+	def get(self, *args, **kwargs):
+		try:
+			conn = sqlite3.connect(dir_vault + "facturas.db")
+			c = conn.cursor()
+			query = """SELECT %s FROM %s WHERE 1 """ % (self.__que__,self.__tabla__)
 
-Paginador("/")
+			# campos en clase
+			for campo in self.__where__:
+				if campo[1] == "LIKE": campo[2] = "%" + campo[2] + "%"
+				query += "AND %s %s '%s' " % (campo[0],campo[1],campo[2])
+			# campos en uri
+			for articulo, valor in kwargs.iteritems():
+				query += "AND %s = '%s' " % (articulo, valor)
+			# campos en metrodo get
+			for campo in self.__where_args__:
+				if campo[1] == "LIKE": 
+					q = "%" + request.query.get(campo[0]) + "%"
+				else: 
+					q = request.query.get(campo[0])
+				query += "AND %s %s '%s'" % (campo[0],campo[1],q)
 
-@get('/ajax')
-def indexMain():
-	args = request.query.get("input")
-	conn = sqlite3.connect(dir_vault + "facturas.db")
-	c = conn.cursor()
-	query = "SELECT * FROM conceptos WHERE noIdentificacion LIKE \"%"+args+"%\" GROUP BY noIdentificacion "
-	datos = c.execute(query)
-	return template("templates/json.html", datos=datos.fetchall() )
+			if self.__group__:
+				query += " GROUP BY %s " % self.__group__
 
-@route('/concepto')
-def conceptos():
-	args = request.query.get("concepto")
-	conn = sqlite3.connect(dir_vault + "facturas.db")
-	c = conn.cursor()
-	query = """SELECT * FROM conceptos WHERE noIdentificacion = "%s" """ % args
-	datos = c.execute(query)
-	return template("templates/concepto.html", datos=datos.fetchall() )
+			print query
+			datos = c.execute(query)
+			resultado = template(self.__template__, datos=datos.fetchall() )
+			conn.close()
+			return resultado
+    
+		except Exception as e:
+			conn.close()
+			return template('ERROR!<br /> {{error}}', error = str(e))
+			
+	def que(self,que):
+		self.__que__ = que
+		return self
+		
+	def tabla(self,tabla):
+		self.__tabla__ = tabla
+		return self
 
+	def where(self,campo,operador,condicion):
+		self.__where__.append((campo,operador,condicion))
+		return self
 
-@route('/listado')
-def indexMain():
-	conn = sqlite3.connect(dir_vault + "facturas.db")
-	c = conn.cursor()
-	query = """SELECT * FROM facturas """
-	datos = c.execute(query)
-	return template("templates/listado.html", datos=datos.fetchall() )
+	def where_args(self,campo,operador):
+		self.__where_args__.append((campo,operador))
+		return self
 
-@route('/factura/<id_factura>.xml')
-def verFactura(id_factura):
-	conn = sqlite3.connect(dir_vault + "facturas.db")
-	c = conn.cursor()
-	query = """SELECT * FROM conceptos WHERE cfdi = "%s"  """ % id_factura
-	datos = c.execute(query)
-	return template("templates/factura.html", datos=datos.fetchall() )
+	def template(self,tmp):
+		self.__template__ = tmp
+		return self
+
+	def group(self,group):
+		self.__group__ = group
+		return self
+
+Paginador("/").template("templates/listado.html")
+Paginador("/factura/<cfdi>.xml").tabla("conceptos").template("templates/factura.html")
+Paginador("/concepto").tabla("conceptos").where_args("noIdentificacion","=")\
+		.template("templates/concepto.html")
+Paginador("/ajax").tabla("conceptos").where_args("noIdentificacion", "LIKE")\
+		.template("templates/json.html")
+Paginador("/listado/xproveedor").que("emisor").tabla("facturas").group("emisor")\
+		.template("templates/xproveedor.html")
+
 	
 @route("/listado/xmes")
 def xmeses():
@@ -101,23 +131,6 @@ def xmes(ano,mes,orden):
 	
 	return template("templates/xmes_listado.html", {"datos":datos} )
 	
-
-@route("/listado/xproveedor")
-def xproveedor():
-	conn = sqlite3.connect(dir_vault + "facturas.db")
-	c = conn.cursor()
-	query = """SELECT emisor FROM facturas  GROUP BY emisor """
-	datos = c.execute(query)
-	return template("templates/xproveedor.html", {"datos":datos} )
-
-@route("/listado/xproveedor/<proveedor>")
-def xproveedor(proveedor):
-	conn = sqlite3.connect(dir_vault + "facturas.db")
-	c = conn.cursor()
-	query = """SELECT * FROM facturas WHERE emisor = "%s" ORDER BY fecha DESC """ % proveedor
-	datos = c.execute(query)
-	return template("templates/proveedor.html", {"datos":datos} )
-
 
 @route('/pasa')
 def index():
