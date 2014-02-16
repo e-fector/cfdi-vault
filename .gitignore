@@ -1,6 +1,7 @@
 *.py[cod]
 
 semantic.cache
+*.html~
 
 # C extensions
 *.so

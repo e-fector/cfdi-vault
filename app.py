@@ -5,8 +5,30 @@ import time
 
 import pynotify
 
-@route('/hello/<name>')
-def index(name):
+import sqlite3
+
+from vault import dir_vault
+
+@route('/listado')
+def indexMain():
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = """SELECT * FROM facturas """
+	datos = c.execute(query)
+	return template("templates/listado.html", datos=datos.fetchall() )
+
+@route('/factura/<id_factura>.xml')
+def verFactura(id_factura):
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = """SELECT * FROM conceptos WHERE cfdi = "%s"  """ % id_factura
+	datos = c.execute(query)
+	return template("templates/factura.html", datos=datos.fetchall() )
+	
+
+
+@route('/')
+def index():
 
 	pynotify.init("Cfdi-vault")
 	msg = pynotify.Notification("SERV","El servidor fue iniciado")

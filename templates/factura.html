@@ -1,0 +1,20 @@
+% rebase('templates/base.html', title='Factura')
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td>Cantidad</td>
+    <td>No Identificacion</td>
+    <td>Descripcion</td>
+    <td>Valor Unitario</td>
+    <td>import</td>
+  </tr>
+
+% for dato in datos: 
+  <tr>
+    <td>{{ dato[2] }}</td>
+    <td>{{ dato[3] }}</td>
+    <td>{{ dato[4] }}</td>
+    <td>{{ dato[5] }}</td>
+    <td>{{ dato[6] }}</td>
+  </tr>
+% end
+</table>

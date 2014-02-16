@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>{{ title  or "" }} CFDI Vault</title>
+    <style type="text/css" media="screen">
+      ul.menu li {
+        display:block;
+        float:left;
+        margin-right: 10px;
+      }
+      #contenido {
+        float:left;
+        clear:both;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>¡Bienvenido a CFDI Vault!</h1>
+    <ul class="menu">
+      <li><a href="/listado">Ver listado de facturas</a></li>
+      <li><a href="/meses">Facturas por mes</a></li>
+      <li><a href="/proveedores">Facturas por proveedor</a></li>
+      <li><a href="/buscador">Buscador especializado</a></li>
+    </ul>
+
+    <div id="contenido">
+      {{ !base }}
+    </div> 
+    
+  
+  </body>
+</html>
+
+
+

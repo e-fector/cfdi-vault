@@ -1,0 +1,19 @@
+% rebase('templates/base.html', title='Listado')
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+  <td>Cfdi</td>
+  <td>Emisor</td>
+  <td>Folio</td>
+  <td>Fecha</td>
+</tr>  
+
+% for dato in datos:
+<tr>
+  <td><a href="/factura/{{ dato[1] }}.xml">{{ dato[1] }}</a></td>
+  <td>{{ dato[2] }} </td>
+  <td>{{ dato[3] }}</td>
+  <td>{{ dato[4] }}</td>
+</tr>  
+% end
+</table>
