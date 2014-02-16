@@ -36,6 +36,23 @@ def xmeses():
 	
 	return template("templates/xmes.html", {"datos":fecha, "hoy":datetime.now()} )
 
+@route("/listado/xproveedor")
+def xproveedor():
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = """SELECT emisor FROM facturas  GROUP BY emisor """
+	datos = c.execute(query)
+	return template("templates/xproveedor.html", {"datos":datos} )
+
+@route("/listado/xproveedor/<proveedor>")
+def xproveedor(proveedor):
+	conn = sqlite3.connect(dir_vault + "facturas.db")
+	c = conn.cursor()
+	query = """SELECT * FROM facturas WHERE emisor = "%s" ORDER BY fecha DESC """ % proveedor
+	datos = c.execute(query)
+	return template("templates/proveedor.html", {"datos":datos} )
+
+
 @route('/')
 def index():
 
@@ -54,4 +71,4 @@ def index():
 	
 	#return template('<b>Hello {{name}}</b>!', name=name)
 
-run(host='localhost', port=8080)
+run(host='localhost', port=8001)

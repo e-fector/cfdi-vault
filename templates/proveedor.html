@@ -1,0 +1,10 @@
+% rebase('templates/base.html', title="Facturas de proveedor")
+
+<ul>
+ 
+% for factura in datos:
+%   import time
+%   fecha = time.gmtime(int(factura[4]))
+   {{ fecha[2] }}/{{ fecha[1] }}/{{ fecha[0] }} - {{ factura[1] }} <br />
+% end
+</ul>

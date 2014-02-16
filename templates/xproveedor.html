@@ -1,0 +1,7 @@
+% rebase('templates/base.html', title="X proveedor")
+
+<ul>
+% for proveedor in datos:
+  <li><a href="/listado/xproveedor/{{ proveedor[0] }}">{{ proveedor[0] }}</a></li>
+% end
+</ul>
