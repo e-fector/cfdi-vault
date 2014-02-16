@@ -30,6 +30,7 @@ class Paginador:
 		self.__where_args__ = []
 		self.__que__ = "*"
 		self.__group__ = False
+		self.__limit__ = False
 		bottle.route(self.ruta)(self.get)
 
 	def get(self, *args, **kwargs):
@@ -55,8 +56,9 @@ class Paginador:
 
 			if self.__group__:
 				query += " GROUP BY %s " % self.__group__
+			if self.__limit__:
+				query += " LIMIT %s " % self.__limit__
 
-			print query
 			datos = c.execute(query)
 			resultado = template(self.__template__, datos=datos.fetchall() )
 			conn.close()
@@ -90,12 +92,16 @@ class Paginador:
 		self.__group__ = group
 		return self
 
+	def limit(self,limit):
+		self.__limit__ = limit
+		return self
+
 Paginador("/").template("templates/listado.html")
 Paginador("/factura/<cfdi>.xml").tabla("conceptos").template("templates/factura.html")
 Paginador("/concepto").tabla("conceptos").where_args("noIdentificacion","=")\
 		.template("templates/concepto.html")
 Paginador("/ajax").tabla("conceptos").where_args("noIdentificacion", "LIKE")\
-		.template("templates/json.html")
+		.template("templates/json.html").limit(6)
 Paginador("/listado/xproveedor").que("emisor").tabla("facturas").group("emisor")\
 		.template("templates/xproveedor.html")
 Paginador("/listado/xproveedor/<emisor>").tabla("facturas")\

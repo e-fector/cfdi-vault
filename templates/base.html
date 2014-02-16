@@ -67,19 +67,17 @@
     
 
 
-<script type="text/javascript">
-	var options = {
-		script:"/ajax?json=true&limit=6&",
-		varname:"noIdentificacion",
-		json:true,
-		shownoresults:false,
-		maxresults:6,
-		callback: function (obj) { document.getElementById('testid').value = obj.id; }
-	};
-	var as_json = new bsn.AutoSuggest('testinput', options);
-	
-	
-</script>
+    <script type="text/javascript">
+      var options = {
+        script:"/ajax?json=true&limit=6&",
+        varname:"noIdentificacion",
+        json:true,
+        shownoresults:false,
+        maxresults:6,
+        callback: function (obj) { document.getElementById('testid').value = obj.id; }
+      };
+      var as_json = new bsn.AutoSuggest('testinput', options);	
+    </script>
 
   
   </body>
