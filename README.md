@@ -3,15 +3,19 @@ cfdi-vault
 
 Aplicacion para ordenar archivos XML
 
-!Archivos Principales
+Archivos Principales
+---
 
-Configurar aplicacion:
+- Configurar aplicacion:
+
     python config.py
 
-Correr el servidor:
+- Correr el servidor:
+
     python app.py
     
-Cargar archivos:
+- Cargar archivos:
+
     python vault.py
 
 Descargar archivos correo electrónico:
