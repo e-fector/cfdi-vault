@@ -59,6 +59,10 @@ class FacturaCFDi3(Factura):
 		Emisor = self.raiz.find("{http://www.sat.gob.mx/cfd/3}Emisor")
 		return Emisor.attrib["rfc"]
 
+	def GetReceptor(self): 
+		Receptor = self.raiz.find("{http://www.sat.gob.mx/cfd/3}Receptor")
+		return Receptor.attrib["rfc"]
+
 	def GetFolio(self): 		
 		return self.raiz.attrib["folio"]
 
@@ -88,6 +92,10 @@ class FacturaCFD2(Factura):
 	def GetRFC(self):
 		Emisor = self.raiz.find("{http://www.sat.gob.mx/cfd/2}Emisor")
 		return Emisor.attrib["rfc"]
+
+	def GetReceptor(self): 
+		Receptor = self.raiz.find("{http://www.sat.gob.mx/cfd/2}Receptor")
+		return Receptor.attrib["rfc"]
 	
 	def GetFolio(self):
 		serie = self.raiz.attrib["serie"] 

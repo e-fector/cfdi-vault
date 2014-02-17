@@ -48,9 +48,10 @@ if __name__ == '__main__':
 					
 					c = conn.cursor()
 
-					query = """INSERT INTO facturas (cfdi, emisor, numero_factura, fecha, tipo) 
-                   VALUES ('%s', '%s', '%s', '%s', '%s' )""" % \
-							(factura.GetCFDi(), rfc_emisor, factura.GetFolio(), \
+					query = """INSERT INTO facturas (cfdi, emisor, receptor, numero_factura, 
+                   fecha, tipo) 
+                   VALUES ('%s', '%s', '%s', '%s', '%s', '%s' )""" % \
+							(factura.GetCFDi(), rfc_emisor, factura.GetReceptor(), factura.GetFolio(), \
 								 calendar.timegm(fecha.utctimetuple()), factura.TipoComprobante())
 
 					c.execute(query)

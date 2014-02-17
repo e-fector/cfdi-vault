@@ -29,10 +29,16 @@ Paginador("/concepto").tabla("conceptos").where_args("noIdentificacion","=")\
 		.template("templates/concepto.html")
 Paginador("/ajax").tabla("conceptos").where_args("noIdentificacion", "LIKE")\
 		.template("templates/json.html").limit(6)
+
 Paginador("/listado/xproveedor").que("emisor").tabla("facturas").group("emisor")\
 		.template("templates/xproveedor.html")
 Paginador("/listado/xproveedor/<emisor>").tabla("facturas")\
 		.template("templates/proveedor.html")
+
+Paginador("/listado/xreceptor").que("receptor").tabla("facturas").group("receptor")\
+		.template("templates/xreceptor.html")
+Paginador("/listado/xreceptor/<receptor>").tabla("facturas")\
+		.template("templates/receptor.html")
 
 @route("/listado/xmes/<ano>/<mes>/<orden>")
 def xmes(ano,mes,orden):
