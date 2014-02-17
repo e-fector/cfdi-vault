@@ -30,6 +30,9 @@
       ul.menu li {
         display:block;
         float:left;
+        padding:10px;
+        border:1px solid #333;
+        background:white;
         margin-right: 10px;
       }
       #contenido {
@@ -46,10 +49,10 @@
 
     <h1>:CFDI Vault:</h1>
     <ul class="menu">
-      <li><a href="/">Listado</a></li>
-      <li><a href="/listado/xmes">X mes</a></li>
-      <li><a href="/listado/xproveedor">X emisor</a></li>
-      <li><a href="/listado/xreceptor">X receptor</a></li>
+      <a href="/"><li>Listado</li></a>
+      <a href="/listado/xmes"><li>X mes</li></a>
+      <a href="/listado/xproveedor"><li>X emisor</li></a>
+      <a href="/listado/xreceptor"><li>X receptor</li></a>
     </ul>
     <form method="get" action="/concepto" class="asholder">
       <input type="hidden" id="testid" value="" style="font-size: 10px; width: 20px;" disabled="disabled" />

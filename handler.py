@@ -25,8 +25,8 @@ class Paginador(Pagina):
 		bottle.route(self.ruta)(self.get)
 
 	def get(self, *args, **kwargs):
-		conn = sqlite3.connect(config.getVar("dir_vault") + "facturas.db")
 		try:
+			
 			conn = sqlite3.connect(config.getVar("dir_vault") + "facturas.db")
 			c = conn.cursor()
 			query = """SELECT %s FROM %s WHERE 1 """ % (self.__que__,self.__tabla__)
@@ -48,11 +48,25 @@ class Paginador(Pagina):
 
 			if self.__group__:
 				query += " GROUP BY %s " % self.__group__
-			if self.__limit__:
+			
+			pagina = request.query.get("desde")
+			anterior = -1
+			siguiente = 50
+			if pagina:
+				query += " LIMIT %s, 50" % pagina
+				siguiente = int(pagina) + 50
+				anterior = int(pagina) - 50
+			elif self.__limit__:
 				query += " LIMIT %s " % self.__limit__
+			else: 
+				query += " LIMIT 50"
 
 			datos = c.execute(query)
-			resultado = template(self.__template__, datos=datos.fetchall() )
+			resultado = template(self.__template__, {
+					"datos":datos.fetchall(),
+					"siguiente": siguiente,
+					"anterior": anterior
+					})
 			conn.close()
 			return resultado
     
