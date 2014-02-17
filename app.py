@@ -6,7 +6,8 @@ import time
 
 import sqlite3
 
-from vault import dir_vault
+from config import Configuracion
+config = Configuracion()
 
 @route('/js/<filename:re:.*\.js>')
 def javascripts(filename):
@@ -35,7 +36,7 @@ Paginador("/listado/xproveedor/<emisor>").tabla("facturas")\
 
 @route("/listado/xmes/<ano>/<mes>/<orden>")
 def xmes(ano,mes,orden):
-	conn = sqlite3.connect(dir_vault + "facturas.db")
+	conn = sqlite3.connect(config.getVar("dir_vault") + "facturas.db")
 	c = conn.cursor()
 	import calendar
 	from dateutil.relativedelta import relativedelta
@@ -53,7 +54,7 @@ def xmes(ano,mes,orden):
 	
 @route("/listado/xmes")
 def xmeses():
-	conn = sqlite3.connect(dir_vault + "facturas.db")
+	conn = sqlite3.connect(config.getVar("dir_vault") + "facturas.db")
 	c = conn.cursor()
 	query = """SELECT fecha FROM facturas ORDER by fecha ASC LIMIT 1 """
 	datos = c.execute(query)

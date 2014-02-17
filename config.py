@@ -8,7 +8,6 @@ class Configuracion(object):
 
 	def getVar(self,nombre):
 		query = "SELECT valor FROM configuracion WHERE variable = '%s'" % nombre
-		print query
 		res = self.conn.execute(query)
 		return res.fetchone()[0]
 		
