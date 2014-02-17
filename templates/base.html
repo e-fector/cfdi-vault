@@ -11,10 +11,12 @@
         display:bock;
         text-align:center;
         margin: 0 auto;
+        background: white url(/img/bg.jpg) no-repeat top left;
+        border-left: 1px solid #333;
+        border-right: 1px solid #333;
       }
       
       body {
-
         overflow-x: hidden;
       }
       p {	
@@ -24,7 +26,7 @@
       }
       #header {
         padding:0 10px 10px 10px;
-        background-color:#CCC;
+        background:#CCC url(/img/cabecera.jpg);
         border:1px solid #333;
       }
       ul.menu li {
@@ -35,9 +37,22 @@
         background:white;
         margin-right: 10px;
       }
+      ul.menu a:hover li {
+        background:black;
+        color:white;
+      }
       #contenido {
         float:left;
         clear:both;
+      }
+      #next {
+        padding:30px;
+      }
+      #next a {
+        padding:10px;
+      }
+      #next a:hover {
+        background-color:#CECECE;
       }
     </style>
 
@@ -47,7 +62,7 @@
 
     <div id="header">
 
-    <h1>:CFDI Vault:</h1>
+    <h1 style="color:white">:CFDI Vault:</h1>
     <ul class="menu">
       <a href="/"><li>Listado</li></a>
       <a href="/listado/xmes"><li>X mes</li></a>
@@ -57,7 +72,6 @@
     <form method="get" action="/concepto" class="asholder">
       <input type="hidden" id="testid" value="" style="font-size: 10px; width: 20px;" disabled="disabled" />
       <input style="width: 200px" type="text" id="testinput" value="" name="noIdentificacion" /> 
-      <input type="submit" value="submit" />
     </form>
 
     </div> 

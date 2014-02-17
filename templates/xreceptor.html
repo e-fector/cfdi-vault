@@ -1,6 +1,13 @@
 % rebase('templates/base.html', title="X receptor")
+<style type="text/css" media="screen">
+  #receptor li {
+    width:25%;
+    float:left;
+    padding-top:10px;
+  }
+</style>
 
-<ul>
+<ul id="receptor">
 % for receptor in datos:
   <li><a href="/listado/xreceptor/{{ receptor[0] }}">{{ receptor[0] }}</a></li>
 % end

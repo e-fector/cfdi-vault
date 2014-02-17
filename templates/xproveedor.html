@@ -1,6 +1,13 @@
 % rebase('templates/base.html', title="X proveedor")
+<style type="text/css" media="screen">
+  #proveedores li {
+    width:25%;
+    float:left;
+    padding-top:10px;
+  }
+</style>
 
-<ul>
+<ul id="proveedores">
 % for proveedor in datos:
   <li><a href="/listado/xproveedor/{{ proveedor[0] }}">{{ proveedor[0] }}</a></li>
 % end
