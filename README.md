@@ -8,18 +8,19 @@ Archivos Principales
 
 - Configurar aplicacion:
 
-    python config.py
+    `python config.py`
 
 - Correr el servidor:
 
-    python app.py
+    `python app.py`
     
 - Cargar archivos:
 
-    python vault.py
+    `python vault.py`
 
-Descargar archivos correo electrónico:
-    python descarga_facturas.py
+- Descargar archivos correo electrónico:
+
+    `python descarga_facturas.py`
 
 Para imprimir todos los conceptos usar:
     sqlite3 -header -csv ~/facturas_vault/facturas.db "select * from conceptos;" > conceptos.txt
